@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Rating />
     </div>
   );
 }
 
 export default App;
+
+class Rating extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { activeIndex: -1 };
+  }
+  setActive(index) {
+    this.setState({ activeIndex: index });
+  }
+  render() {
+    var stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(
+        <span
+          className={i <= this.state.activeIndex ? "active" : ""}
+          key={i}
+          onClick={this.setActive.bind(this, i)}
+        >
+          *
+        </span>
+      );
+    }
+    return <div>{stars}</div>;
+  }
+}
